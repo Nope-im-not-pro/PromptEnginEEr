@@ -4,7 +4,7 @@ Wandelt frei und unbeholfen formulierte Prompts per LLM in optimierte,
 kopierbare Prompts um. Desktop (Windows 11, Linux) und Android, gleiche
 Python-Logik und Oberfläche. Ein Projekt von [Eisberg Tech](https://eisberg-tech.de).
 
-Version: siehe [CHANGELOG.md](CHANGELOG.md) (aktuell 1.4.1).
+Version: siehe [CHANGELOG.md](CHANGELOG.md).
 Kurzbeschreibung und Links: [DESCRIPTION.md](DESCRIPTION.md).
 
 ## Inhalt
@@ -15,7 +15,6 @@ Kurzbeschreibung und Links: [DESCRIPTION.md](DESCRIPTION.md).
 - [Desktop-Builds (PyInstaller, Nuitka)](#desktop-builds-pyinstaller-nuitka)
 - [Android](#android)
 - [Bedienung](#bedienung)
-- [Skripte](#skripte)
 - [Struktur](#struktur)
 - [Links](#links)
 
@@ -39,103 +38,97 @@ automatisch abgefragt.
 | openai (lokal, z. B. Ollama; API-Key leer lassen) | `http://localhost:11434/v1` |
 | anthropic | `https://api.anthropic.com` |
 
-Einstellungen liegen in `.env` neben der App (Schlüssel `API_TYPE`,
-`BASE_URL`, `API_KEY`, `MODEL`, `THEME`, `LAYOUT`; Vorlage `.env.example`).
-Normalweg: in der App unter Einstellungen pflegen, die App schreibt `.env`
-selbst. Historie: `history.db` (SQLite), Fehlerlog: `app.log`.
+Einstellungen speichert die App in einer Einstellungsdatei neben der
+Programmdatei (Schlüssel `API_TYPE`, `BASE_URL`, `API_KEY`, `MODEL`, `THEME`,
+`LAYOUT`; Vorlage [.env.example](.env.example)). Normalweg: in der App unter
+Einstellungen pflegen, die App legt die Datei selbst an. Historie und
+Fehlerlog liegen ebenfalls lokal neben der App (SQLite bzw. Textdatei).
 
 ## Voraussetzungen
 
 | Plattform | Voraussetzung |
 |---|---|
-| Linux (Debian/Ubuntu) | Python 3.11+, GTK 3 + WebKit2GTK 4.1 über `python3-gi` (`sudo apt install python3-gi gir1.2-webkit2-4.1`); `.venv` mit `--system-site-packages` |
+| Linux (Debian/Ubuntu) | Python 3.11+, GTK 3 + WebKit2GTK 4.1 über `python3-gi` (`sudo apt install python3-venv python3-gi gir1.2-webkit2-4.1`) |
 | Linux, Nuitka-Build | zusätzlich `sudo apt install gcc patchelf python3-dev` |
-| Linux ohne Display (Build-Selftest) | `sudo apt install xvfb` |
-| Windows 11 | Python 3.11+ (`py`-Launcher), WebView2 Runtime (vorinstalliert), Git Bash für die `.sh`-Skripte |
+| Linux ohne Display (Build-Selftest) | `sudo apt install xvfb`, Build über `xvfb-run -a` |
+| Windows 11 | Python 3.11+ (`py`-Launcher), WebView2 Runtime (vorinstalliert) |
 | Windows, Nuitka-Build | zusätzlich Visual Studio Build Tools (MSVC) |
 | Android-Build | JDK 17/21, Android SDK 36, Details: [Android](#android) |
 
-Laufzeit-Abhängigkeiten (`requirements.txt`): pywebview, httpx,
-python-dotenv. `requirements-dev.txt` ergänzt pytest, PyInstaller, Nuitka
-(gepinnte Versionen).
+Laufzeit-Abhängigkeiten ([requirements.txt](requirements.txt)): pywebview,
+httpx, python-dotenv. [requirements-dev.txt](requirements-dev.txt) ergänzt
+pytest, PyInstaller, Nuitka (gepinnte Versionen).
 
 ## Installation und Start
+
+Virtuelle Umgebung anlegen und aktivieren (Name frei wählbar, hier `<venv>`).
+Unter Linux mit `--system-site-packages`, damit `python3-gi` der System-Python
+sichtbar ist.
 
 Linux:
 
 ```bash
-./000_install.sh                              # .venv + requirements.txt
-.venv/bin/python -m pip install -r requirements-dev.txt   # optional: Tests, Builds
-./001_start.sh                                # App im Hintergrund (PID in .run/app.pid)
-./002_stop.sh                                 # App beenden
+python3 -m venv --system-site-packages <venv>
+source <venv>/bin/activate
+python -m pip install -r requirements-dev.txt
 ```
 
-Windows (Git Bash oder PowerShell, einmalig):
+Windows (PowerShell):
 
-```bash
-py -3.11 -m venv .venv
-.venv/Scripts/python -m pip install -r requirements-dev.txt
-.venv/Scripts/python main.py
+```powershell
+py -3.11 -m venv <venv>
+<venv>\Scripts\Activate.ps1
+python -m pip install -r requirements-dev.txt
 ```
 
-Direkt (Linux-Pfade, unter Windows `.venv/Scripts/python`):
+Danach (beide Plattformen, Umgebung aktiv):
 
 ```bash
-.venv/bin/python main.py              # App starten
-.venv/bin/python main.py --selftest   # Prüflauf, Exit 0 = grün
-.venv/bin/python -m pytest -q         # Tests, ohne Netz
+python main.py              # App starten
+python main.py --selftest   # Prüflauf, Exit 0 = grün
+python -m pytest -q         # Tests, ohne Netz
 ```
 
 `--selftest`: verstecktes Fenster, prüft Seitenaufbau, js_api
-(`get_settings`), beschreibbaren App-Ordner, SQLite. Legt weder `.env` noch
-`history.db` noch `app.log` an.
+(`get_settings`), beschreibbaren App-Ordner, SQLite. Legt weder
+Einstellungsdatei noch Historie noch Log an.
 
 ## Desktop-Builds (PyInstaller, Nuitka)
 
-Beide Builds laufen über `build.py` und funktionieren unter Linux und Windows
-(Build immer auf dem Zielsystem, kein Cross-Compile). Nach dem Build startet
-`build.py` die erzeugte App mit `--selftest` und prüft, dass keine
-Laufzeit-Dateien im Ausgabe-Ordner liegen. Exit 0 nur wenn alles grün ist.
+Beide Builds laufen über [build.py](build.py), unter Linux und Windows (Build
+immer auf dem Zielsystem, kein Cross-Compile). Nach dem Build startet
+`build.py` die erzeugte App mit `--selftest` und prüft, dass im
+Ausgabe-Ordner keine Laufzeit-Dateien entstanden sind. Exit 0 nur wenn alles
+grün ist.
 
 ```bash
-./013_build_pyinstaller.sh            # PyInstaller, Single-Folder (--onedir)
-./014_build_nuitka.sh                 # Nuitka, Standalone
+python build.py pyinstaller --version 1.4.1 \
+  --tool-arg=--collect-submodules=controllers \
+  --tool-arg=--collect-submodules=models \
+  --tool-arg=--collect-submodules=services
+
+python build.py nuitka --version 1.4.1 \
+  --tool-arg=--include-package=controllers \
+  --tool-arg=--include-package=models \
+  --tool-arg=--include-package=services
+
+python build.py all          # beide nacheinander
 ```
 
-Die Skripte
+| Option | Wirkung |
+|---|---|
+| `pyinstaller` \| `nuitka` \| `all` | Build-Werkzeug; PyInstaller als Single-Folder (`--onedir`), Nuitka `--standalone` |
+| `--version X.Y.Z` | Windows: Versionsressource der exe (PyInstaller `--version-file`, Nuitka `--product-version`/`--file-version` = `X.Y.Z.0`); Linux ohne Wirkung |
+| `--tool-arg=FLAG` | zusätzliches Flag für PyInstaller bzw. Nuitka, mehrfach angebbar |
 
-- lesen die Version aus dem ersten `## [X.Y.Z]`-Eintrag in `CHANGELOG.md`
-  (ohne Eintrag: Menü bzw. `--fallback-version`, Ausgabe-Ordner bekommt dann
-  das Suffix `_no-changelog`),
-- wählen das Python der `.venv` (Linux `.venv/bin/python`, Git Bash unter
-  Windows `.venv/Scripts/python.exe`),
-- installieren fehlendes PyInstaller/Nuitka in der Version aus
-  `requirements-dev.txt`,
-- prüfen unter Linux `gcc` und `patchelf` (Nuitka) und nutzen `xvfb-run`,
-  wenn kein Display vorhanden ist,
-- reichen die Paket- und Daten-Flags aus `BUILD_ARGS` (eigene Pakete
-  `controllers`, `models`, `services`, Vorlage `.env.example`) per
-  `--tool-arg` an `build.py` durch.
+Unter Windows mit PowerShell die Zeilenfortsetzung `\` durch `` ` `` ersetzen
+oder alles in eine Zeile schreiben. Nuitka unter Windows nutzt MSVC; verlangt
+Nuitka einen Werkzeug-Download, bricht `build.py` mit `BLOCKED` ab.
 
-Optionen: `--no-pause` (kein "Enter zum Schließen"), `--fallback-version
-0.0.0|X.Y.Z|abort`. Exit-Codes: 0 OK, 1 Fehler, 2 Abbruch.
-
-Direkt:
-
-```bash
-.venv/bin/python build.py pyinstaller | nuitka | all [--version X.Y.Z] [--tool-arg=FLAG ...]
-```
-
-`--version` setzt unter Windows die Versionsressource der exe (PyInstaller
-`--version-file`, Nuitka `--product-version`/`--file-version`); unter Linux
-ohne Wirkung. Logs: `build/pyinstaller.log`, `build/nuitka.log`.
-
-Ausgabe (Single-Folder, portabel kopierbar):
-
-| Build | Linux | Windows |
-|---|---|---|
-| PyInstaller | `dist/pyinstaller/PromptEnginEEr/PromptEnginEEr` | `dist\pyinstaller\PromptEnginEEr\PromptEnginEEr.exe` |
-| Nuitka | `dist/nuitka/PromptEnginEEr/PromptEnginEEr` | `dist\nuitka\PromptEnginEEr\PromptEnginEEr.exe` |
+`build.py` gibt am Ende Pfad und Größe der Programmdatei sowie das
+Selftest-Ergebnis aus (`RESULT: OK`). Programmdatei: `PromptEnginEEr.exe`
+unter Windows, `PromptEnginEEr` unter Linux, jeweils im Ordner
+`PromptEnginEEr`.
 
 Weitergabe: kompletten Ordner `PromptEnginEEr` kopieren, nicht nur die
 Programmdatei. Der Ordner muss beschreibbar sein (nicht `C:\Program Files`).
@@ -150,20 +143,22 @@ einer WebView-App. Android 8.0 (API 26) bis 16 (API 36), ABIs arm64-v8a
 | Nr | Voraussetzung Build-Host | Prüfung |
 |---|---|---|
 | NV1 | JDK 17 oder 21, `JAVA_HOME` gesetzt | `java -version` |
-| NV2 | Android SDK Platform 36, Build-Tools, Platform-Tools; `ANDROID_HOME` (Default `~/Android/Sdk`) | `adb version` |
+| NV2 | Android SDK Platform 36, Build-Tools, Platform-Tools; `ANDROID_HOME` gesetzt | `adb version` |
 | NV3 | Gradle-Wrapper in `android/` | `android/gradlew --version` |
 | NV4 | Netzzugang beim ersten Gradle-Lauf | - |
 | NV5 | Optional: Emulator-AVD (x86_64) | `emulator -list-avds` |
 
 ```bash
-./003_build_apk.sh                                  # Debug-APK, Version aus CHANGELOG.md
-android/gradlew -p android connectedDebugAndroidTest   # Gerätetests (SelfTest.kt)
+android/gradlew -p android :app:assembleDebug                 # Debug-APK
+android/gradlew -p android :app:assembleRelease               # Release-APK
+android/gradlew -p android connectedDebugAndroidTest          # Gerätetests (SelfTest.kt)
 ```
 
-Ausgabe: `android/app/build/outputs/apk/`, Kopie nach
-`z_APKs/PromptEnginEEr_<Version>_<debug|release>.apk`. Release ohne
-`android/keystore.properties` wird mit Debug-Signatur gebaut, nicht zur
-Weitergabe. Eigener Keystore: [INFRA.md](INFRA.md).
+Unter Windows `android\gradlew.bat` statt `android/gradlew`. Version
+(`versionName`, `versionCode`) steht in `android/app/build.gradle.kts`. Die APK liegt
+danach im Gradle-Ausgabeordner des Moduls `app` (Unterordner
+`outputs/apk/<variante>`). Ein Release-Build ohne eigene Signatur-Konfiguration
+wird mit Debug-Signatur gebaut und ist nicht zur Weitergabe gedacht.
 
 Installation (Sideload): APK aufs Gerät kopieren, "Installation aus
 unbekannten Quellen" erlauben, APK öffnen; oder `adb install -r <apk>`.
@@ -215,26 +210,6 @@ Bekannte Einschränkungen Android (Dark-Mode):
   hellen Startbildschirm.
 - API 31+: Startbildschirm-Modus gilt ab dem nächsten Kaltstart.
 
-## Skripte
-
-Bash, lokal, gitignored (`*.sh`). Alle Skripte: `--no-pause`, Exit 0 OK,
-1 Fehler, 2 Abbruch.
-
-| Skript | Zweck |
-|---|---|
-| `000_install.sh` | `.venv` anlegen, `requirements.txt` installieren |
-| `001_start.sh` | App im Hintergrund starten, Logs `.run/app.out.log`, `.run/app.err.log` |
-| `002_stop.sh` | App beenden (PID-File mit Identitätsprüfung) |
-| `003_build_apk.sh` | Android-APK (Gradle), Version aus `CHANGELOG.md`, Kopie nach `z_APKs/` |
-| `006_github_push.sh` | Commit + Push nach GitHub (`--message`, `--branch`, `--dry-run`) |
-| `007_github_force_push.sh` | Force-Push nach GitHub, Remote-Commits werden überschrieben |
-| `008_github_wipe_history.sh` | Git-Historie auf GitHub durch einen Commit ersetzen |
-| `013_build_pyinstaller.sh` | Desktop-Build PyInstaller + Selftest (Linux, Windows/Git Bash) |
-| `014_build_nuitka.sh` | Desktop-Build Nuitka + Selftest (Linux, Windows/Git Bash) |
-
-Nummern 004-005 (Docker) und 009-012 (Git-Helfer, Codeberg) sind reserviert,
-daher die Desktop-Builds auf 013/014.
-
 ## Struktur
 
 ```
@@ -243,7 +218,7 @@ build.py                PyInstaller-/Nuitka-Build + Selftest (Linux, Windows)
 android_entry.py        Android-Einstieg (Chaquopy), Dispatcher auf controllers/api.py
 controllers/api.py      pywebview js_api (Brücke UI <-> Python)
 services/paths.py       App- und Ressourcen-Pfade
-services/settings.py    .env laden/speichern/validieren
+services/settings.py    Einstellungen laden/speichern/validieren
 services/providers.py   OpenAI-/Anthropic-Adapter (Modelle, Chat)
 services/optimizer.py   System-Prompt, JSON-Protokoll, Schrittlogik
 models/history.py       SQLite-Historie
@@ -251,11 +226,10 @@ static/                 index.html, app.css, app.js (View), fonts/, assets/
 design/                 Layout-Mockups Werkbank / Fokus (Referenz, nicht ausgeliefert)
 android/                Android-Projekt (Gradle, Kotlin-Hülle, WebView)
 tests/                  pytest, ohne Netz (httpx.MockTransport)
-0??_*.sh                Install, Start, Stop, Builds, Git (lokal)
 ```
 
-Schichten-Zuordnung: [MVC.md](MVC.md). Begründung: [ERKLAERUNG.md](ERKLAERUNG.md).
-Pfade, Netz, Builds: [INFRA.md](INFRA.md).
+Schichten: `models/` Persistenz, `services/` Geschäftslogik ohne UI,
+`controllers/` Brücke zur Oberfläche, `static/` View.
 
 ## Links
 

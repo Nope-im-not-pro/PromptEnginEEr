@@ -12,7 +12,9 @@ z_*
 # Nur zwingend oeffentliche Markdown-Dateien sind ausgenommen.
 *.md
 !CHANGELOG.md
-!README*.md
+!README_DE.md
+!README_EN.md
+!README.md
 !DESCRIPTION.md
 !LICENSE.md
 !BLUEPRINT*.md
@@ -44,6 +46,3 @@ android/keystore.properties
 *.keystore
 .kotlin/
 
-
-# Design-Werkzeug lokaler Zustand (taste-skill)
-.taste-skill/
