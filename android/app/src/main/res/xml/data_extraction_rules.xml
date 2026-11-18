@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- API 31+: Schluessel, Verlauf und Log (filesDir) nie in Cloud-Backup oder Geraetetransfer. -->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="file" path=".env" />
+        <exclude domain="file" path="history.db" />
+        <exclude domain="file" path="app.log" />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="file" path=".env" />
+        <exclude domain="file" path="history.db" />
+        <exclude domain="file" path="app.log" />
+    </device-transfer>
+</data-extraction-rules>

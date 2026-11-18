@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Layout B Fokus - Desktop | Prompt EnginEEr</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/favicon-180.png">
+<link rel="stylesheet" href="ci_tokens.css">
+<link rel="stylesheet" href="B.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 5H6a1 1 0 0 0-1 1v10"/></symbol>
+  <symbol id="i-del" viewBox="0 0 24 24"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12"/></symbol>
+  <symbol id="i-new" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17h.01"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-load" viewBox="0 0 24 24"><path d="M19 12a7 7 0 1 1-2-4.9M19 4v4h-4"/></symbol>
+  <symbol id="i-min" viewBox="0 0 24 24"><path d="M6 12h12"/></symbol>
+  <symbol id="i-max" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+</svg>
+
+<main class="mock">
+  <header class="mock-head">
+    <a class="btn btn-quiet" href="index.html">Zur Übersicht</a>
+    <h1 class="h1">Layout B "Fokus" - Desktop</h1>
+    <div class="seg" role="group" aria-label="Darstellung der Mockups">
+      <button type="button" data-set-theme="light">Hell</button>
+      <button type="button" data-set-theme="dark">Dunkel</button>
+    </div>
+    <p class="lead">Schmale Kopfzeile mit Zeichen, Produktname, Tabs und der aktiven Verbindung. Darunter eine zentrierte Spalte: Schrittanzeige über die volle Spaltenbreite, dann genau eine Karte pro Schritt. Die Historie nutzt die ganze Fensterbreite als Liste und Detail.</p>
+  </header>
+
+  <!-- B1 Eingabe -->
+  <figure>
+    <figcaption class="mock-cap">B1 - Optimieren, Schritt 1 Eingabe - 1100 x 720</figcaption>
+    <div class="win">
+      <div class="win-bar"><img src="assets/favicon.svg" alt="" width="16" height="16"><span>Prompt EnginEEr</span><span class="win-ctl" aria-hidden="true"><span><svg class="ico"><use href="#i-min"/></svg></span><span><svg class="ico"><use href="#i-max"/></svg></span><span><svg class="ico"><use href="#i-close"/></svg></span></span></div>
+      <div class="b-app">
+        <header class="b-top">
+          <div class="brand"><img class="mark" src="assets/logo_mark.svg" alt="Eisberg Tech" width="32" height="32"><span class="brand-name">Prompt EnginEEr</span></div>
+          <nav class="b-tabs" aria-label="Hauptnavigation"><a href="#" aria-current="page">Optimieren</a><a href="#">Historie</a><a href="#">Einstellungen</a></nav>
+          <span class="b-conn">anthropic / claude-sonnet-4-5</span>
+        </header>
+        <div class="b-body">
+          <div class="b-col">
+            <ol class="b-steps" aria-label="Fortschritt">
+              <li aria-current="step"><span class="n">Schritt 1</span>Eingabe</li>
+              <li><span class="n">Schritt 2</span>Rückfrage</li>
+              <li><span class="n">Schritt 3</span>Ergebnis</li>
+            </ol>
+            <section class="b-card">
+              <div>
+                <h2 class="h1">Prompt eingeben</h2>
+                <p class="lead">Schreib einfach los. Fehlt etwas Wichtiges, stellt die App genau eine Rückfrage.</p>
+              </div>
+              <textarea class="textarea" aria-label="Roh-Prompt" placeholder="Beschreibe frei, was die KI für dich tun soll. Unvollständige Sätze sind okay.">schreib mir ne mail an meinen vermieter wegen der heizung, die geht seit montag nicht. er soll das schnell machen, aber bitte freundlich bleiben</textarea>
+              <div class="b-card-foot">
+                <span class="hint"><kbd>Strg</kbd> + <kbd>Enter</kbd> sendet</span>
+                <button type="button" class="btn btn-primary"><svg class="ico"><use href="#i-send"/></svg>Optimieren</button>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </figure>
+
+  <!-- B2 Rueckfrage -->
+  <figure>
+    <figcaption class="mock-cap">B2 - Optimieren, Schritt 2 Rückfrage - 1100 x 720</figcaption>
+    <div class="win">
+      <div class="win-bar"><img src="assets/favicon.svg" alt="" width="16" height="16"><span>Prompt EnginEEr</span><span class="win-ctl" aria-hidden="true"><span><svg class="ico"><use href="#i-min"/></svg></span><span><svg class="ico"><use href="#i-max"/></svg></span><span><svg class="ico"><use href="#i-close"/></svg></span></span></div>
+      <div class="b-app">
+        <header class="b-top">
+          <div class="brand"><img class="mark" src="assets/logo_mark.svg" alt="Eisberg Tech" width="32" height="32"><span class="brand-name">Prompt EnginEEr</span></div>
+          <nav class="b-tabs" aria-label="Hauptnavigation"><a href="#" aria-current="page">Optimieren</a><a href="#">Historie</a><a href="#">Einstellungen</a></nav>
+          <span class="b-conn">anthropic / claude-sonnet-4-5</span>
+        </header>
+        <div class="b-body">
+          <div class="b-col">
+            <ol class="b-steps" aria-label="Fortschritt">
+              <li class="done"><span class="n">Schritt 1</span>Eingabe</li>
+              <li aria-current="step"><span class="n">Schritt 2</span>Rückfrage</li>
+              <li><span class="n">Schritt 3</span>Ergebnis</li>
+            </ol>
+            <section class="b-card">
+              <span class="tag">Rückfrage zu deinem Prompt von 14:32</span>
+              <h2 class="b-q">Welches Ergebnis brauchst du am Ende?</h2>
+              <div class="opts" role="group" aria-label="Antwortvorgaben">
+                <button type="button" class="opt"><b>Fertige E-Mail</b><span>Vollständiger Text mit Betreff, direkt versendbar.</span></button>
+                <button type="button" class="opt"><b>Kurze Nachricht</b><span>Wenige Sätze für Messenger oder SMS.</span></button>
+                <button type="button" class="opt"><b>Formelle Mängelanzeige</b><span>Mit Frist und Hinweis auf das Mietrecht.</span></button>
+                <button type="button" class="opt"><b>Gesprächsleitfaden</b><span>Stichpunkte für ein Telefonat mit dem Vermieter.</span></button>
+              </div>
+              <div class="b-refine">
+                <label class="h3" for="b2-refine">Oder Prompt neu formulieren</label>
+                <textarea id="b2-refine" class="textarea" placeholder="Prompt präziser formulieren und erneut senden.">schreib mir ne mail an meinen vermieter wegen der heizung, die geht seit montag nicht. er soll das schnell machen, aber bitte freundlich bleiben</textarea>
+                <div class="b-card-foot" style="padding-top:0;border-top:0">
+                  <span class="hint"><kbd>Strg</kbd> + <kbd>Enter</kbd> sendet</span>
+                  <button type="button" class="btn">Neu formulieren senden</button>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </figure>
+
+  <!-- B3 Ergebnis -->
+  <figure>
+    <figcaption class="mock-cap">B3 - Optimieren, Schritt 3 Ergebnis - 1100 x 720</figcaption>
+    <div class="win">
+      <div class="win-bar"><img src="assets/favicon.svg" alt="" width="16" height="16"><span>Prompt EnginEEr</span><span class="win-ctl" aria-hidden="true"><span><svg class="ico"><use href="#i-min"/></svg></span><span><svg class="ico"><use href="#i-max"/></svg></span><span><svg class="ico"><use href="#i-close"/></svg></span></span></div>
+      <div class="b-app">
+        <header class="b-top">
+          <div class="brand"><img class="mark" src="assets/logo_mark.svg" alt="Eisberg Tech" width="32" height="32"><span class="brand-name">Prompt EnginEEr</span></div>
+          <nav class="b-tabs" aria-label="Hauptnavigation"><a href="#" aria-current="page">Optimieren</a><a href="#">Historie</a><a href="#">Einstellungen</a></nav>
+          <span class="b-conn">anthropic / claude-sonnet-4-5</span>
+        </header>
+        <div class="b-body">
+          <div class="b-col">
+            <ol class="b-steps" aria-label="Fortschritt">
+              <li class="done"><span class="n">Schritt 1</span>Eingabe</li>
+              <li class="done"><span class="n">Schritt 2</span>Rückfrage</li>
+              <li aria-current="step"><span class="n">Schritt 3</span>Ergebnis</li>
+            </ol>
+            <section class="b-card">
+              <div>
+                <h2 class="h1">Optimierter Prompt</h2>
+                <p class="lead">Nach einer Rückfrage, Antwort "Fertige E-Mail".</p>
+              </div>
+<pre class="result">Rolle: Du bist ein erfahrener Assistent für Mieterkorrespondenz.
+
+Aufgabe: Formuliere eine E-Mail an meinen Vermieter. Die Heizung in meiner Wohnung funktioniert seit Montag, 16.11.2026, nicht mehr.
+
+Ziel: Der Vermieter beauftragt zeitnah eine Reparatur.
+
+Ton: freundlich, sachlich, bestimmt.
+
+Inhalt:
+- Betreffzeile
+- Beschreibung des Mangels mit Datum
+- Bitte um Reparatur innerhalb von 3 Werktagen
+- Angebot, einen Termin für den Handwerker abzustimmen
+
+Format: Fließtext mit Anrede und Grußformel, höchstens 150 Wörter.</pre>
+              <div class="b-card-foot">
+                <span class="hint">In die Zwischenablage kopiert.</span>
+                <button type="button" class="btn"><svg class="ico"><use href="#i-new"/></svg>Neuer Prompt</button>
+                <button type="button" class="btn btn-primary"><svg class="ico"><use href="#i-copy"/></svg>Kopieren</button>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </figure>
+
+  <!-- B4 Historie -->
+  <figure>
+    <figcaption class="mock-cap">B4 - Historie, Liste und Detail - 1100 x 720</figcaption>
+    <div class="win">
+      <div class="win-bar"><img src="assets/favicon.svg" alt="" width="16" height="16"><span>Prompt EnginEEr</span><span class="win-ctl" aria-hidden="true"><span><svg class="ico"><use href="#i-min"/></svg></span><span><svg class="ico"><use href="#i-max"/></svg></span><span><svg class="ico"><use href="#i-close"/></svg></span></span></div>
+      <div class="b-app">
+        <header class="b-top">
+          <div class="brand"><img class="mark" src="assets/logo_mark.svg" alt="Eisberg Tech" width="32" height="32"><span class="brand-name">Prompt EnginEEr</span></div>
+          <nav class="b-tabs" aria-label="Hauptnavigation"><a href="#">Optimieren</a><a href="#" aria-current="page">Historie</a><a href="#">Einstellungen</a></nav>
+          <span class="b-conn">anthropic / claude-sonnet-4-5</span>
+        </header>
+        <div class="b-md">
+          <div class="b-master">
+            <div class="b-master-head"><h2 class="h1">Historie</h2><span class="tag">6 Einträge</span></div>
+            <ul class="b-list" aria-label="Einträge, neueste zuerst">
+              <li><a href="#" aria-current="true"><span>schreib mir ne mail an meinen vermieter wegen der heizung, die geht seit montag nicht</span><time>18.11. 14:33</time></a></li>
+              <li><a href="#"><span>python skript das eine csv nach datum filtert und doppelte zeilen rauswirft</span><time>18.11. 09:15</time></a></li>
+              <li><a href="#"><span>produkttext für die eisberg tech website, abschnitt it-support für kleine büros</span><time>17.11. 17:48</time></a></li>
+              <li><a href="#"><span>fasse das meeting-protokoll zusammen, nur entscheidungen und offene punkte</span><time>16.11. 11:02</time></a></li>
+              <li><a href="#"><span>anschreiben bewerbung it-support, 3 jahre erfahrung, quereinstieg</span><time>14.11. 08:40</time></a></li>
+              <li><a href="#"><span>regex für deutsche postleitzahlen und ortsnamen</span><time>12.11. 19:27</time></a></li>
+            </ul>
+          </div>
+          <div class="b-detail">
+            <div class="b-detail-body">
+              <h3 class="h3">Roh-Prompt</h3>
+              <pre class="raw">schreib mir ne mail an meinen vermieter wegen der heizung, die geht seit montag nicht. er soll das schnell machen, aber bitte freundlich bleiben</pre>
+              <h3 class="h3">Verlauf</h3>
+              <div class="turn"><span class="tag">user</span>schreib mir ne mail an meinen vermieter wegen der heizung, die geht seit montag nicht. er soll das schnell machen, aber bitte freundlich bleiben</div>
+              <div class="turn turn-assistant"><span class="tag">assistant</span>Welches Ergebnis brauchst du am Ende?</div>
+              <div class="turn"><span class="tag">user</span>Fertige E-Mail</div>
+              <h3 class="h3">Ergebnis</h3>
+<pre class="result">Rolle: Du bist ein erfahrener Assistent für Mieterkorrespondenz.
+
+Aufgabe: Formuliere eine E-Mail an meinen Vermieter. Die Heizung in meiner Wohnung funktioniert seit Montag, 16.11.2026, nicht mehr.
+
+Ziel: Der Vermieter beauftragt zeitnah eine Reparatur.
+
+Ton: freundlich, sachlich, bestimmt.
+
+Inhalt:
+- Betreffzeile
+- Beschreibung des Mangels mit Datum
+- Bitte um Reparatur innerhalb von 3 Werktagen
+- Angebot, einen Termin für den Handwerker abzustimmen
+
+Format: Fließtext mit Anrede und Grußformel, höchstens 150 Wörter.</pre>
+            </div>
+            <div class="b-detail-foot">
+              <button type="button" class="btn btn-primary"><svg class="ico"><use href="#i-copy"/></svg>Kopieren</button>
+              <button type="button" class="btn btn-danger"><svg class="ico"><use href="#i-del"/></svg>Löschen</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </figure>
+
+  <!-- B5 Einstellungen -->
+  <figure>
+    <figcaption class="mock-cap">B5 - Einstellungen beim Erststart, Fehler bei "Modelle laden" - 1100 x 720</figcaption>
+    <div class="win">
+      <div class="win-bar"><img src="assets/favicon.svg" alt="" width="16" height="16"><span>Prompt EnginEEr</span><span class="win-ctl" aria-hidden="true"><span><svg class="ico"><use href="#i-min"/></svg></span><span><svg class="ico"><use href="#i-max"/></svg></span><span><svg class="ico"><use href="#i-close"/></svg></span></span></div>
+      <div class="b-app">
+        <header class="b-top">
+          <div class="brand"><img class="mark" src="assets/logo_mark.svg" alt="Eisberg Tech" width="32" height="32"><span class="brand-name">Prompt EnginEEr</span></div>
+          <nav class="b-tabs" aria-label="Hauptnavigation"><a href="#">Optimieren</a><a href="#">Historie</a><a href="#" aria-current="page">Einstellungen</a></nav>
+          <span class="b-conn">nicht verbunden</span>
+        </header>
+        <div class="b-body">
+          <div class="b-col">
+            <h2 class="h1">Einstellungen</h2>
+            <div class="note"><svg class="ico"><use href="#i-info"/></svg><p>Willkommen. Bitte zuerst Anbieter, Basis-URL, API-Key und Modell eintragen und speichern.</p></div>
+            <section class="b-card">
+              <h3 class="h2">Verbindung</h3>
+              <div class="b-form">
+                <div class="field">
+                  <span class="lbl" id="b5-type">Anbieter-Typ</span>
+                  <div class="seg" role="group" aria-labelledby="b5-type">
+                    <button type="button" aria-pressed="false">OpenAI-kompatibel</button>
+                    <button type="button" aria-pressed="true">Anthropic-kompatibel</button>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="b5-url">Basis-URL</label>
+                  <input id="b5-url" class="input mono" type="text" value="https://api.anthropic.com" autocomplete="off">
+                </div>
+                <div class="field">
+                  <label for="b5-key">API-Key</label>
+                  <input id="b5-key" class="input mono" type="password" value="sk-ant-beispielwert" autocomplete="off">
+                  <label class="check"><input type="checkbox"> Key entfernen</label>
+                </div>
+                <div class="field">
+                  <label for="b5-model">Modell</label>
+                  <div class="row">
+                    <input id="b5-model" class="input mono" type="text" placeholder="Modellname eingeben oder Liste laden" autocomplete="off">
+                    <button type="button" class="btn"><svg class="ico"><use href="#i-load"/></svg>Modelle laden</button>
+                  </div>
+                  <div class="note note-error" role="alert"><svg class="ico"><use href="#i-alert"/></svg><p>Modelle laden fehlgeschlagen: 401 Unauthorized. API-Key prüfen.</p></div>
+                </div>
+              </div>
+              <div class="b-card-foot">
+                <span class="hint">Noch nicht gespeichert. Der Key geht nie an einen neuen Host.</span>
+                <button type="button" class="btn btn-primary">Speichern</button>
+              </div>
+            </section>
+            <section class="b-card">
+              <h3 class="h2">Darstellung</h3>
+              <div class="seg" role="group" aria-label="Modus" style="justify-self:start">
+                <button type="button" data-set-theme="system">System</button>
+                <button type="button" data-set-theme="light">Hell</button>
+                <button type="button" data-set-theme="dark">Dunkel</button>
+              </div>
+            </section>
+            <section class="b-card b-about">
+              <div>
+                <h3 class="h2">Über</h3>
+                <p class="tag" style="margin:4px 0 0">Prompt EnginEEr 1.3.0</p>
+              </div>
+              <img class="lockup on-light" src="assets/logo_hell.svg" alt="Eisberg Tech" width="144" height="67">
+              <img class="lockup on-dark" src="assets/logo_dunkel.svg" alt="Eisberg Tech" width="144" height="67">
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </figure>
+
+  <!-- B6 Mindestgroesse, Anfrage laeuft -->
+  <figure>
+    <figcaption class="mock-cap">B6 - Mindestgröße 800 x 600, Antwort gewählt, Anfrage läuft</figcaption>
+    <div class="win s800">
+      <div class="win-bar"><img src="assets/favicon.svg" alt="" width="16" height="16"><span>Prompt EnginEEr</span><span class="win-ctl" aria-hidden="true"><span><svg class="ico"><use href="#i-min"/></svg></span><span><svg class="ico"><use href="#i-max"/></svg></span><span><svg class="ico"><use href="#i-close"/></svg></span></span></div>
+      <div class="b-app">
+        <header class="b-top">
+          <div class="brand"><img class="mark" src="assets/logo_mark.svg" alt="Eisberg Tech" width="32" height="32"><span class="brand-name">Prompt EnginEEr</span></div>
+          <nav class="b-tabs" aria-label="Hauptnavigation"><a href="#" aria-current="page">Optimieren</a><a href="#">Historie</a><a href="#">Einstellungen</a></nav>
+          <span class="b-conn">anthropic / claude-sonnet-4-5</span>
+        </header>
+        <div class="b-body">
+          <div class="b-col">
+            <ol class="b-steps" aria-label="Fortschritt">
+              <li class="done"><span class="n">Schritt 1</span>Eingabe</li>
+              <li aria-current="step"><span class="n">Schritt 2</span>Rückfrage</li>
+              <li><span class="n">Schritt 3</span>Ergebnis</li>
+            </ol>
+            <section class="b-card">
+              <h2 class="b-q">Welches Ergebnis brauchst du am Ende?</h2>
+              <div class="opts" role="group" aria-label="Antwortvorgaben">
+                <button type="button" class="opt" aria-pressed="true"><b>Fertige E-Mail</b><span>Vollständiger Text mit Betreff, direkt versendbar.</span></button>
+                <button type="button" class="opt"><b>Kurze Nachricht</b><span>Wenige Sätze für Messenger oder SMS.</span></button>
+                <button type="button" class="opt"><b>Formelle Mängelanzeige</b><span>Mit Frist und Hinweis auf das Mietrecht.</span></button>
+                <button type="button" class="opt"><b>Gesprächsleitfaden</b><span>Stichpunkte für ein Telefonat mit dem Vermieter.</span></button>
+              </div>
+              <div class="note note-busy" role="status">
+                <p>Bitte warten, Anfrage läuft ...</p>
+                <div class="bar"></div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </figure>
+</main>
+
+<script>
+(function () {
+  var root = document.documentElement, mq = matchMedia("(prefers-color-scheme: dark)");
+  function set(mode) {
+    root.dataset.theme = mode === "system" ? (mq.matches ? "dark" : "light") : mode;
+    document.querySelectorAll("[data-set-theme]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.setTheme === mode)); });
+  }
+  document.addEventListener("click", function (e) { var b = e.target.closest("[data-set-theme]"); if (b) set(b.dataset.setTheme); });
+  set("system");
+})();
+</script>
+</body>
+</html>

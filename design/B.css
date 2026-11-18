@@ -1,0 +1,87 @@
+/* Layout B "Fokus / Assistent". Benoetigt ci_tokens.css.
+   Desktop: Kopfzeile 48 px (Zeichen + Name, Tabs, aktive Verbindung), darunter eine zentrierte
+   Spalte von max. 720 px: Schrittanzeige, dann genau eine Wizard-Karte.
+   Rechnung bei 1100 px (innen 1098): 20 + 169 + 720 + 169 + 20 = 1098;
+   bei 800 px (innen 798): 20 + 19 + 720 + 19 + 20 = 798.
+   Historie: Master-Detail ueber die volle Breite, Liste 320 px. */
+
+/* ---------- Desktop ---------- */
+.b-app { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.b-top { flex: none; display: flex; align-items: center; gap: 24px; height: 48px; padding: 0 16px 0 8px; border-bottom: 1px solid var(--line); background: var(--ground); }
+.b-tabs { display: flex; align-self: stretch; gap: 4px; }
+.b-tabs a { display: flex; align-items: center; margin-bottom: -1px; padding: 0 12px; border-bottom: 2px solid transparent; color: var(--muted); font: 500 14px/1 var(--font-ui); text-decoration: none; }
+.b-tabs a:hover { color: var(--text); }
+.b-tabs a[aria-current="page"] { border-bottom-color: var(--accent); color: var(--text); }
+.b-conn { margin-left: auto; font: 400 12px/1 var(--font-mono); color: var(--muted); white-space: nowrap; }
+.b-body { flex: 1; min-height: 0; overflow: auto; padding: 28px 20px; }
+.b-col { display: grid; gap: 20px; max-width: 720px; margin: 0 auto; }
+
+.b-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0; padding: 0; list-style: none; }
+.b-steps li { display: grid; gap: 8px; color: var(--muted); font: 500 14px/1.2 var(--font-ui); }
+.b-steps li::before { content: ""; height: 4px; border-radius: 2px; background: var(--line); }
+.b-steps li.done::before, .b-steps li[aria-current="step"]::before { background: var(--accent); }
+.b-steps li[aria-current="step"] { color: var(--text); font-weight: 600; }
+.b-steps .n { display: block; margin-bottom: 2px; font: 500 12px/1 var(--font-mono); color: var(--muted); }
+
+.b-card { display: grid; gap: 16px; padding: 24px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.b-card .textarea { min-height: 200px; }
+.b-card-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px 12px; padding-top: 16px; border-top: 1px solid var(--rule); }
+.b-card-foot > .hint:first-child { margin-right: auto; }
+.b-q { margin: 0; font: 400 26px/1.2 var(--font-head); color: var(--text); }
+.b-card .opts { grid-template-columns: 1fr 1fr; }
+.b-refine { display: grid; gap: 10px; padding-top: 16px; border-top: 1px solid var(--rule); }
+.b-refine .textarea { min-height: 88px; }
+
+/* Historie Master-Detail */
+.b-md { flex: 1; min-height: 0; display: grid; grid-template-columns: 320px 1fr; }
+.b-master { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--line); background: var(--sunken); }
+.b-master-head { display: flex; align-items: baseline; justify-content: space-between; padding: 20px 16px 12px; }
+.b-list { flex: 1; min-height: 0; margin: 0; padding: 0 8px 8px; list-style: none; overflow: auto; }
+.b-list a { display: grid; gap: 2px; padding: 10px 10px; border-radius: var(--r-control); text-decoration: none; }
+.b-list a:hover { background: var(--ground); }
+.b-list a[aria-current="true"] { background: var(--active); }
+.b-list span { display: -webkit-box; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; color: var(--text); font: 400 14px/1.4 var(--font-ui); }
+.b-list time { font: 400 12px/1.3 var(--font-mono); color: var(--muted); }
+.b-detail { display: flex; flex-direction: column; min-height: 0; }
+.b-detail-body { flex: 1; min-height: 0; display: grid; gap: 12px; align-content: start; overflow: auto; padding: 20px 24px; }
+.b-detail-foot { flex: none; display: flex; gap: 8px; padding: 12px 24px; border-top: 1px solid var(--line); }
+.b-detail-foot .btn-danger { margin-left: auto; }
+
+/* Einstellungen */
+.b-form { display: grid; gap: 16px; }
+.b-about { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+
+@container win (max-width: 900px) {
+  .b-top { gap: 12px; }
+  .b-conn { display: none; }
+  .b-body { padding: 20px; }
+  .b-md { grid-template-columns: 260px 1fr; }
+}
+
+/* ---------- Android ---------- */
+.b-mob { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.b-bar { flex: none; display: flex; align-items: center; gap: 4px; height: 64px; padding: 0 4px 0 8px; }
+.b-bar .h1 { flex: 1; min-width: 0; font-size: 24px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.b-bar .mark { margin: 4px 8px 4px 4px; }
+.icon-btn { flex: none; display: grid; place-items: center; width: 48px; height: 48px; border: 0; border-radius: 24px; background: transparent; color: var(--text); cursor: pointer; }
+.icon-btn:hover { background: var(--sunken); }
+.icon-btn .ico { width: 22px; height: 22px; }
+.b-prog { flex: none; display: grid; gap: 8px; padding: 0 16px 12px; }
+.b-prog-bars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.b-prog-bars i { height: 4px; border-radius: 2px; background: var(--line); }
+.b-prog-bars i.on { background: var(--accent); }
+.b-prog-label { display: flex; justify-content: space-between; font: 500 14px/1.2 var(--font-ui); color: var(--text); }
+.b-prog-label .tag { font-weight: 500; }
+.b-scroll { flex: 1; min-height: 0; display: grid; gap: 16px; align-content: start; overflow: auto; padding: 4px 16px 16px; }
+.b-scroll .b-q { font-size: 24px; }
+.b-scroll .textarea { min-height: 280px; }
+.b-scroll .b-refine .textarea { min-height: 96px; }
+.b-dock { flex: none; display: grid; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--line); background: var(--surface); }
+.b-dock.two { grid-template-columns: 1fr 1fr; }
+.b-mob.docked + .gesture { background: var(--surface); }
+.b-mob .b-list { padding: 0; }
+.b-mob .b-list a { min-height: 72px; padding: 12px 16px; border-radius: 0; border-bottom: 1px solid var(--rule); }
+.b-group { display: grid; gap: 16px; padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
+.b-group:last-child { border-bottom: 0; }
+.b-mob .check input[type="radio"] { accent-color: var(--accent); }
+.b-mob .lockup-box { display: flex; justify-content: center; }

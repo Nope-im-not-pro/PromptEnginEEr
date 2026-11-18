@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Layout A Werkbank - Android | Prompt EnginEEr</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/favicon-180.png">
+<link rel="stylesheet" href="ci_tokens.css">
+<link rel="stylesheet" href="A.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-opt" viewBox="0 0 24 24"><path d="M4 20L14 10"/><path d="M12.5 8.5l2-2 3 3-2 2z"/><path d="M18 3v3M16.5 4.5h3M20 11v2M19 12h2M8 3v2M7 4h2"/></symbol>
+  <symbol id="i-hist" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></symbol>
+  <symbol id="i-set" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 5H6a1 1 0 0 0-1 1v10"/></symbol>
+  <symbol id="i-del" viewBox="0 0 24 24"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12"/></symbol>
+  <symbol id="i-new" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17h.01"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-load" viewBox="0 0 24 24"><path d="M19 12a7 7 0 1 1-2-4.9M19 4v4h-4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M4 10a12 12 0 0 1 16 0M7 13.5a7.5 7.5 0 0 1 10 0M10 17a3 3 0 0 1 4 0"/></symbol>
+  <symbol id="i-bat" viewBox="0 0 24 24"><rect x="3" y="8" width="16" height="8" rx="2"/><path d="M21 11v2"/><path d="M6 11h8v2H6z" fill="currentColor"/></symbol>
+</svg>
+
+<main class="mock">
+  <header class="mock-head">
+    <a class="btn btn-quiet" href="index.html">Zur Übersicht</a>
+    <h1 class="h1">Layout A "Werkbank" - Android</h1>
+    <div class="seg" role="group" aria-label="Darstellung der Mockups">
+      <button type="button" data-set-theme="light">Hell</button>
+      <button type="button" data-set-theme="dark">Dunkel</button>
+    </div>
+    <p class="lead">Navigationsleiste unten mit drei Zielen. Der Workflow läuft als senkrechter Verlauf: eigener Prompt, Rückfrage, Ergebnis stehen untereinander, Umformulieren geschieht im Eingabefeld über der Navigation. Das Historie-Detail öffnet als Blatt von unten über der Liste.</p>
+  </header>
+
+  <div class="mock-row">
+    <!-- PA1 Eingabe -->
+    <figure>
+      <figcaption class="mock-cap">PA1 - Schritt 1 Eingabe</figcaption>
+      <div class="phone touch">
+        <div class="sysbar"><span>14:31</span><span><svg class="ico"><use href="#i-wifi"/></svg><svg class="ico"><use href="#i-bat"/></svg></span></div>
+        <div class="a-mob">
+          <header class="a-top"><img class="mark" src="assets/logo_mark.svg" alt="Eisberg Tech" width="32" height="32"><h2 class="h1">Optimieren</h2></header>
+          <ol class="a-steps" aria-label="Fortschritt">
+            <li aria-current="step"><span class="n">1</span>Eingabe</li>
+            <li><span class="n">2</span>Rückfrage</li>
+            <li><span class="n">3</span>Ergebnis</li>
+          </ol>
+          <div class="a-feed">
+            <div class="card">
+              <label class="h3" for="pa1-raw">Prompt eingeben</label>
+              <textarea id="pa1-raw" class="textarea" placeholder="Beschreibe frei, was die KI für dich tun soll. Unvollständige Sätze sind okay.">schreib mir ne mail an meinen vermieter wegen der heizung, die geht seit montag nicht. er soll das schnell machen, aber bitte freundlich bleiben</textarea>
+              <div class="card-actions one"><button type="button" class="btn btn-primary"><svg class="ico"><use href="#i-send"/></svg>Optimieren</button></div>
+            </div>
+          </div>
+          <nav class="a-bnav" aria-label="Hauptnavigation">
+            <a href="#" aria-current="page"><span class="pill"><svg class="ico"><use href="#i-opt"/></svg></span>Optimieren</a>
+            <a href="#"><span class="pill"><svg class="ico"><use href="#i-hist"/></svg></span>Historie</a>
+            <a href="#"><span class="pill"><svg class="ico"><use href="#i-set"/></svg></span>Einstellungen</a>
+          </nav>
+        </div>
+        <div class="gesture"></div>
+      </div>
+    </figure>
+
+    <!-- PA2 Rueckfrage -->
+    <figure>
+      <figcaption class="mock-cap">PA2 - Schritt 2 Rückfrage</figcaption>
+      <div class="phone touch">
+        <div class="sysbar"><span>14:32</span><span><svg class="ico"><use href="#i-wifi"/></svg><svg class="ico"><use href="#i-bat"/></svg></span></div>
+        <div class="a-mob">
+          <header class="a-top"><img class="mark" src="assets/logo_mark.svg" alt="Eisberg Tech" width="32" height="32"><h2 class="h1">Optimieren</h2></header>
+          <ol class="a-steps" aria-label="Fortschritt">
+            <li class="done"><svg class="ico"><use href="#i-check"/></svg>Eingabe</li>
+            <li aria-current="step"><span class="n">2</span>Rückfrage</li>
+            <li><span class="n">3</span>Ergebnis</li>
+          </ol>
+          <div class="a-feed">
+            <div class="card mine"><div class="card-head"><span class="tag">Du</span><span class="tag">14:32</span></div><p>schreib mir ne mail an meinen vermieter wegen der heizung, die geht seit montag nicht. er soll das schnell machen, aber bitte freundlich bleiben</p></div>
+            <div class="card">
+              <span class="tag">Rückfrage</span>
+              <p class="h2">Welches Ergebnis brauchst du am Ende?</p>
+              <div class="opts" role="group" aria-label="Antwortvorgaben">
+                <button type="button" class="opt"><b>Fertige E-Mail</b><span>Vollständiger Text mit Betreff, direkt versendbar.</span></button>
+                <button type="button" class="opt"><b>Kurze Nachricht</b><span>Wenige Sätze für Messenger oder SMS.</span></button>
+                <button type="button" class="opt"><b>Formelle Mängelanzeige</b><span>Mit Frist und Hinweis auf das Mietrecht.</span></button>
+                <button type="button" class="opt"><b>Gesprächsleitfaden</b><span>Stichpunkte für ein Telefonat.</span></button>
+              </div>
+            </div>
+          </div>
+          <div class="a-composer">
+            <textarea class="textarea" aria-label="Prompt neu formulieren" placeholder="Oder Prompt neu formulieren ..."></textarea>
+            <button type="button" class="icon-btn primary" aria-label="Neu formulieren senden"><svg class="ico"><use href="#i-send"/></svg></button>
+          </div>
+          <nav class="a-bnav" aria-label="Hauptnavigation">
+            <a href="#" aria-current="page"><span class="pill"><svg class="ico"><use href="#i-opt"/></svg></span>Optimieren</a>
+            <a href="#"><span class="pill"><svg class="ico"><use href="#i-hist"/></svg></span>Historie</a>
+            <a href="#"><span class="pill"><svg class="ico"><use href="#i-set"/></svg></span>Einstellungen</a>
+          </nav>
+        </div>
+        <div class="gesture"></div>
+      </div>
+    </figure>
+
+    <!-- PA3 Anfrage laeuft -->
+    <figure>
+      <figcaption class="mock-cap">PA3 - Antwort gewählt, Anfrage läuft</figcaption>
+      <div class="phone touch">
+        <div class="sysbar"><span>14:32</span><span><svg class="ico"><use href="#i-wifi"/></svg><svg class="ico"><use href="#i-bat"/></svg></span></div>
+        <div class="a-mob">
+          <header class="a-top"><img class="mark" src="assets/logo_mark.svg" alt="Eisberg Tech" width="32" height="32"><h2 class="h1">Optimieren</h2></header>
+          <ol class="a-steps" aria-label="Fortschritt">
+            <li class="done"><svg class="ico"><use href="#i-check"/></svg>Eingabe</li>
+            <li aria-current="step"><span class="n">2</span>Rückfrage</li>
+            <li><span class="n">3</span>Ergebnis</li>
+          </ol>
+          <div class="a-feed">
+            <div class="card">
+              <span class="tag">Rückfrage</span>
+              <p class="h2">Welches Ergebnis brauchst du am Ende?</p>
+              <div class="opts" role="group" aria-label="Antwortvorgaben">
+                <button type="button" class="opt" aria-pressed="true"><b>Fertige E-Mail</b><span>Vollständiger Text mit Betreff, direkt versendbar.</span></button>
+                <button type="button" class="opt"><b>Kurze Nachricht</b><span>Wenige Sätze für Messenger oder SMS.</span></button>
+                <button type="button" class="opt"><b>Formelle Mängelanzeige</b><span>Mit Frist und Hinweis auf das Mietrecht.</span></button>
+                <button type="button" class="opt"><b>Gesprächsleitfaden</b><span>Stichpunkte für ein Telefonat.</span></button>
+              </div>
+            </div>
+            <div class="note note-busy" role="status">
+              <p>Bitte warten, Anfrage läuft ...</p>
+              <div class="bar"></div>
+              <span class="tag">anthropic / claude-sonnet-4-5</span>
+            </div>
+          </div>
+          <nav class="a-bnav" aria-label="Hauptnavigation">
+            <a href="#" aria-current="page"><span class="pill"><svg class="ico"><use href="#i-opt"/></svg></span>Optimieren</a>
+            <a href="#"><span class="pill"><svg class="ico"><use href="#i-hist"/></svg></span>Historie</a>
+            <a href="#"><span class="pill"><svg class="ico"><use href="#i-set"/></svg></span>Einstellungen</a>
+          </nav>
+        </div>
+        <div class="gesture"></div>
+      </div>
+    </figure>
+
+    <!-- PA4 Ergebnis -->
+    <figure>
+      <figcaption class="mock-cap">PA4 - Schritt 3 Ergebnis</figcaption>
+      <div class="phone touch">
+        <div class="sysbar"><span>14:33</span><span><svg class="ico"><use href="#i-wifi"/></svg><svg class="ico"><use href="#i-bat"/></svg></span></div>
+        <div class="a-mob">
+          <header class="a-top"><img class="mark" src="assets/logo_mark.svg" alt="Eisberg Tech" width="32" height="32"><h2 class="h1">Optimieren</h2></header>
+          <ol class="a-steps" aria-label="Fortschritt">
+            <li class="done"><svg class="ico"><use href="#i-check"/></svg>Eingabe</li>
+            <li class="done"><svg class="ico"><use href="#i-check"/></svg>Rückfrage</li>
+            <li aria-current="step"><span class="n">3</span>Ergebnis</li>
+          </ol>
+          <div class="a-feed">
+            <div class="card mine"><div class="card-head"><span class="tag">Deine Antwort</span><span class="tag">14:32</span></div><p>Fertige E-Mail</p></div>
+            <div class="card">
+              <div class="card-head"><span class="tag">Optimierter Prompt</span><span class="tag">14:33</span></div>
+<pre class="result">Rolle: Du bist ein erfahrener Assistent für Mieterkorrespondenz.
+
+Aufgabe: Formuliere eine E-Mail an meinen Vermieter. Die Heizung in meiner Wohnung funktioniert seit Montag, 16.11.2026, nicht mehr.
+
+Ziel: Der Vermieter beauftragt zeitnah eine Reparatur.
+
+Ton: freundlich, sachlich, bestimmt.
+
+Inhalt:
+- Betreffzeile
+- Beschreibung des Mangels mit Datum
+- Bitte um Reparatur innerhalb von 3 Werktagen
+- Angebot, einen Termin für den Handwerker abzustimmen
+
+Format: Fließtext mit Anrede und Grußformel, höchstens 150 Wörter.</pre>
+              <div class="card-actions">
+                <button type="button" class="btn btn-primary"><svg class="ico"><use href="#i-copy"/></svg>Kopieren</button>
+                <button type="button" class="btn"><svg class="ico"><use href="#i-new"/></svg>Neuer Prompt</button>
+              </div>
+            </div>
+          </div>
+          <nav class="a-bnav" aria-label="Hauptnavigation">
+            <a href="#" aria-current="page"><span class="pill"><svg class="ico"><use href="#i-opt"/></svg></span>Optimieren</a>
+            <a href="#"><span class="pill"><svg class="ico"><use href="#i-hist"/></svg></span>Historie</a>
+            <a href="#"><span class="pill"><svg class="ico"><use href="#i-set"/></svg></span>Einstellungen</a>
+          </nav>
+        </div>
+        <div class="gesture"></div>
+      </div>
+    </figure>
+
+    <!-- PA5 Historie -->
+    <figure>
+      <figcaption class="mock-cap">PA5 - Historie, Detail als Blatt</figcaption>
+      <div class="phone touch">
+        <div class="sysbar"><span>14:40</span><span><svg class="ico"><use href="#i-wifi"/></svg><svg class="ico"><use href="#i-bat"/></svg></span></div>
+        <div class="a-mob">
+          <header class="a-top"><img class="mark" src="assets/logo_mark.svg" alt="Eisberg Tech" width="32" height="32"><h2 class="h1">Historie</h2></header>
+          <ul class="a-list" aria-label="Einträge" style="flex:1;min-height:0">
+            <li><a href="#" aria-current="true"><span>schreib mir ne mail an meinen vermieter wegen der heizung, die geht seit montag nicht</span><time>18.11. 14:33</time></a></li>
+            <li><a href="#"><span>python skript das eine csv nach datum filtert und doppelte zeilen rauswirft</span><time>18.11. 09:15</time></a></li>
+            <li><a href="#"><span>produkttext für die eisberg tech website, abschnitt it-support</span><time>17.11. 17:48</time></a></li>
+          </ul>
+          <section class="a-sheet" aria-label="Eintrag vom 18.11. 14:33">
+            <div class="grip"></div>
+            <div class="a-sheet-body">
+              <div class="card-head"><h3 class="h2">Eintrag</h3><span class="tag">18.11. 14:33</span></div>
+              <h4 class="h3">Roh-Prompt</h4>
+              <pre class="raw">schreib mir ne mail an meinen vermieter wegen der heizung, die geht seit montag nicht. er soll das schnell machen, aber bitte freundlich bleiben</pre>
+              <h4 class="h3">Verlauf</h4>
+              <div class="turn turn-assistant"><span class="tag">assistant</span>Welches Ergebnis brauchst du am Ende?</div>
+              <div class="turn"><span class="tag">user</span>Fertige E-Mail</div>
+              <h4 class="h3">Ergebnis</h4>
+<pre class="result">Rolle: Du bist ein erfahrener Assistent für Mieterkorrespondenz.
+
+Aufgabe: Formuliere eine E-Mail an meinen Vermieter. Die Heizung in meiner Wohnung funktioniert seit Montag, 16.11.2026, nicht mehr.
+
+Ziel: Der Vermieter beauftragt zeitnah eine Reparatur.
+
+Ton: freundlich, sachlich, bestimmt.
+
+Inhalt:
+- Betreffzeile
+- Beschreibung des Mangels mit Datum
+- Bitte um Reparatur innerhalb von 3 Werktagen
+- Angebot, einen Termin für den Handwerker abzustimmen
+
+Format: Fließtext mit Anrede und Grußformel, höchstens 150 Wörter.</pre>
+            </div>
+            <div class="a-sheet-foot">
+              <button type="button" class="btn btn-primary"><svg class="ico"><use href="#i-copy"/></svg>Kopieren</button>
+              <button type="button" class="btn btn-danger"><svg class="ico"><use href="#i-del"/></svg>Löschen</button>
+            </div>
+          </section>
+          <nav class="a-bnav" aria-label="Hauptnavigation">
+            <a href="#"><span class="pill"><svg class="ico"><use href="#i-opt"/></svg></span>Optimieren</a>
+            <a href="#" aria-current="page"><span class="pill"><svg class="ico"><use href="#i-hist"/></svg></span>Historie</a>
+            <a href="#"><span class="pill"><svg class="ico"><use href="#i-set"/></svg></span>Einstellungen</a>
+          </nav>
+        </div>
+        <div class="gesture"></div>
+      </div>
+    </figure>
+
+    <!-- PA6 Einstellungen -->
+    <figure>
+      <figcaption class="mock-cap">PA6 - Einstellungen beim Erststart, Fehler</figcaption>
+      <div class="phone touch">
+        <div class="sysbar"><span>14:05</span><span><svg class="ico"><use href="#i-wifi"/></svg><svg class="ico"><use href="#i-bat"/></svg></span></div>
+        <div class="a-mob">
+          <header class="a-top"><img class="mark" src="assets/logo_mark.svg" alt="Eisberg Tech" width="32" height="32"><h2 class="h1">Einstellungen</h2></header>
+          <div class="a-feed">
+            <div class="note"><svg class="ico"><use href="#i-info"/></svg><p>Willkommen. Bitte zuerst Anbieter, Basis-URL, API-Key und Modell eintragen und speichern.</p></div>
+            <div class="card">
+              <h3 class="h3">Verbindung</h3>
+              <div class="field" role="radiogroup" aria-labelledby="pa6-type">
+                <span class="lbl" id="pa6-type">Anbieter-Typ</span>
+                <label class="check"><input type="radio" name="pa6-type"> OpenAI-kompatibel</label>
+                <label class="check"><input type="radio" name="pa6-type" checked> Anthropic-kompatibel</label>
+              </div>
+              <div class="field">
+                <label for="pa6-url">Basis-URL</label>
+                <input id="pa6-url" class="input mono" type="text" value="https://api.anthropic.com" autocomplete="off">
+              </div>
+              <div class="field">
+                <label for="pa6-key">API-Key</label>
+                <input id="pa6-key" class="input mono" type="password" value="sk-ant-beispielwert" autocomplete="off">
+                <label class="check"><input type="checkbox"> Key entfernen</label>
+              </div>
+              <div class="field">
+                <label for="pa6-model">Modell</label>
+                <input id="pa6-model" class="input mono" type="text" placeholder="Modellname oder Liste laden" autocomplete="off">
+                <button type="button" class="btn"><svg class="ico"><use href="#i-load"/></svg>Modelle laden</button>
+                <div class="note note-error" role="alert"><svg class="ico"><use href="#i-alert"/></svg><p>Modelle laden fehlgeschlagen: 401 Unauthorized. API-Key prüfen.</p></div>
+              </div>
+              <button type="button" class="btn btn-primary">Speichern</button>
+            </div>
+            <div class="card">
+              <h3 class="h3">Darstellung</h3>
+              <div class="seg" role="group" aria-label="Modus">
+                <button type="button" data-set-theme="system">System</button>
+                <button type="button" data-set-theme="light">Hell</button>
+                <button type="button" data-set-theme="dark">Dunkel</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-head"><h3 class="h3">Über</h3><span class="tag">1.3.0</span></div>
+              <div class="lockup-box">
+                <img class="lockup on-light" src="assets/logo_hell.svg" alt="Eisberg Tech" width="144" height="67">
+                <img class="lockup on-dark" src="assets/logo_dunkel.svg" alt="Eisberg Tech" width="144" height="67">
+              </div>
+            </div>
+          </div>
+          <nav class="a-bnav" aria-label="Hauptnavigation">
+            <a href="#"><span class="pill"><svg class="ico"><use href="#i-opt"/></svg></span>Optimieren</a>
+            <a href="#"><span class="pill"><svg class="ico"><use href="#i-hist"/></svg></span>Historie</a>
+            <a href="#" aria-current="page"><span class="pill"><svg class="ico"><use href="#i-set"/></svg></span>Einstellungen</a>
+          </nav>
+        </div>
+        <div class="gesture"></div>
+      </div>
+    </figure>
+  </div>
+</main>
+
+<script>
+(function () {
+  var root = document.documentElement, mq = matchMedia("(prefers-color-scheme: dark)");
+  function set(mode) {
+    root.dataset.theme = mode === "system" ? (mq.matches ? "dark" : "light") : mode;
+    document.querySelectorAll("[data-set-theme]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.setTheme === mode)); });
+  }
+  document.addEventListener("click", function (e) { var b = e.target.closest("[data-set-theme]"); if (b) set(b.dataset.setTheme); });
+  set("system");
+})();
+</script>
+</body>
+</html>

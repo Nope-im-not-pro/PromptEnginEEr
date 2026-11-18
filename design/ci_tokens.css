@@ -1,0 +1,188 @@
+/* Prompt EnginEEr - gemeinsame Design-Tokens und Bausteine der Layout-Entwuerfe A und B.
+   Grundlage: Eisberg-Tech-CI (CI.md, Stand 2026-11-17). Nur Mockup, nicht die Produktiv-UI.
+   Farben: CI-Palette plus feste, daraus abgeleitete Mischwerte (jeweils kommentiert).
+   Fehlerfarben regelt die CI nicht: eigene, zurueckhaltende Wahl (siehe --err-*). */
+
+/* ---------- Schriften (lokal, OFL) ---------- */
+@font-face { font-family: "Instrument Serif"; src: url("fonts/InstrumentSerif-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("fonts/InstrumentSerif-Italic.ttf") format("truetype"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Inter"; src: url("fonts/Inter.ttf") format("truetype"); font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; src: url("fonts/JetBrainsMono.ttf") format("truetype"); font-weight: 100 800; font-style: normal; font-display: swap; }
+
+/* ---------- Tokens hell ---------- */
+:root {
+  color-scheme: light;
+  /* CI-Palette (CI.md Abschnitt 2) */
+  --ci-tiefblau: #0D3F5F;
+  --ci-mittelblau: #155A82;
+  --ci-stahlblau: #2C7AA4;
+  --ci-eisblau: #4FA0C6;
+  --ci-helleis: #BCE0F1;
+  --ci-eisweiss: #F4FAFE;
+
+  --page: #D8EDF8;      /* abgeleitet: 50 % Eisweiss + 50 % Helles Eis (Flaeche hinter den Mockup-Rahmen) */
+  --ground: var(--ci-eisweiss);
+  --surface: var(--ci-eisweiss);
+  --sunken: #E6F3FB;    /* abgeleitet: 75 % Eisweiss + 25 % Helles Eis */
+  --active: var(--ci-helleis);
+  --line: var(--ci-helleis);
+  --rule: #D8EDF8;      /* abgeleitet, wie --page */
+  --control: #3E8DB5;   /* abgeleitet: 50 % Stahlblau + 50 % Eisblau, 3,5:1 auf Eisweiss */
+  --text: var(--ci-tiefblau);       /* 10,5:1 auf Eisweiss */
+  --muted: var(--ci-mittelblau);    /* 7,1:1 auf Eisweiss, 6,6:1 auf --sunken */
+  --faint: var(--ci-stahlblau);     /* 4,5:1 nur auf Eisweiss: Platzhalter */
+  --accent: var(--ci-stahlblau);
+  --primary: var(--ci-tiefblau);
+  --primary-hover: var(--ci-mittelblau);
+  --on-primary: var(--ci-eisweiss);
+  --err-bg: #FBEAEA;    /* eigene Wahl, nicht CI */
+  --err-line: #D9A3A3;  /* eigene Wahl, nicht CI */
+  --err-ink: #8E2A2A;   /* eigene Wahl, 7,2:1 auf --err-bg */
+
+  --font-head: "Instrument Serif", Georgia, serif;
+  --font-ui: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --r-control: 6px;
+  --r-panel: 8px;
+}
+
+/* ---------- Tokens dunkel ---------- */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #04131D;      /* abgeleitet: Tiefblau, 30 % Helligkeit */
+  --ground: #062030;    /* abgeleitet: Tiefblau, 50 % Helligkeit */
+  --surface: #0A2E45;   /* abgeleitet: Tiefblau, 73 % Helligkeit */
+  --sunken: #051926;    /* abgeleitet: Tiefblau, 40 % Helligkeit */
+  --active: var(--ci-tiefblau);
+  --line: var(--ci-mittelblau);
+  --rule: var(--ci-tiefblau);
+  --control: var(--ci-eisblau);     /* 4,8:1 auf --surface */
+  --text: var(--ci-eisweiss);       /* 13,4:1 auf --surface */
+  --muted: var(--ci-helleis);       /* 10,1:1 auf --surface, 7,9:1 auf Tiefblau */
+  --faint: var(--ci-eisblau);       /* 4,8:1 nur auf --surface: Platzhalter */
+  --accent: var(--ci-eisblau);
+  --primary: var(--ci-helleis);
+  --primary-hover: var(--ci-eisweiss);
+  --on-primary: var(--ci-tiefblau); /* 7,9:1 auf Helles Eis */
+  --err-bg: #3A1A24;    /* eigene Wahl, nicht CI */
+  --err-line: #8E4A55;  /* eigene Wahl, nicht CI */
+  --err-ink: #F2B8B8;   /* eigene Wahl, 9,1:1 auf --err-bg */
+}
+
+/* ---------- Basis ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--page); color: var(--text); font: 400 14px/1.5 var(--font-ui); }
+body { margin: 0; }
+button { font: inherit; color: inherit; }
+a { color: inherit; }
+.mono { font-family: var(--font-mono); }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.ico { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- Logo (Dateien unveraendert, nur per img) ---------- */
+/* Zeichen: Schutzraum 1/8 Durchmesser = 4 px bei 32 px. */
+.mark { display: block; width: 32px; height: 32px; margin: 4px; flex: none; }
+/* Lockup: min. 120 px breit; Schutzraum = Versalhoehe "E" (ca. 21 px bei 144 px Breite). */
+.lockup { display: block; width: 144px; height: auto; margin: 22px; }
+.on-dark { display: none; }
+:root[data-theme="dark"] .on-light { display: none; }
+:root[data-theme="dark"] .on-dark { display: block; }
+.brand { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.brand-name { font: 400 20px/1 var(--font-head); color: var(--text); white-space: nowrap; }
+
+/* ---------- Typografie ---------- */
+.h1 { margin: 0; font: 400 28px/1.15 var(--font-head); color: var(--text); }
+.h2 { margin: 0; font: 400 20px/1.25 var(--font-head); color: var(--text); }
+.h3 { margin: 0; font: 600 14px/1.4 var(--font-ui); color: var(--text); }
+.lead { margin: 0; font: 400 14px/1.5 var(--font-ui); color: var(--muted); }
+.hint { font: 400 12px/1.4 var(--font-ui); color: var(--muted); }
+.tag { font: 500 12px/1.4 var(--font-mono); color: var(--muted); }
+kbd { font: 500 12px/1 var(--font-mono); padding: 3px 6px; border: 1px solid var(--line); border-radius: 4px; background: var(--sunken); color: var(--text); }
+
+/* ---------- Bedienelemente ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 36px; padding: 0 16px; border: 1px solid var(--control); border-radius: var(--r-control); background: var(--surface); color: var(--text); font: 500 14px/1 var(--font-ui); text-decoration: none; cursor: pointer; white-space: nowrap; }
+.btn:hover { background: var(--sunken); }
+.btn-primary { background: var(--primary); border-color: var(--primary); color: var(--on-primary); }
+.btn-primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); }
+.btn-quiet { border-color: transparent; background: transparent; color: var(--muted); }
+.btn-danger { border-color: var(--err-line); color: var(--err-ink); }
+.btn:focus-visible, .opt:focus-visible, .seg button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.field { display: grid; gap: 6px; }
+.field > label, .lbl { font: 500 14px/1.4 var(--font-ui); color: var(--text); }
+.input, .textarea { width: 100%; padding: 8px 10px; border: 1px solid var(--control); border-radius: var(--r-control); background: var(--surface); color: var(--text); font: 400 14px/1.5 var(--font-ui); }
+.input { height: 36px; }
+.input.mono, .textarea.mono { font-family: var(--font-mono); font-size: 13px; }
+.textarea { resize: vertical; }
+.input::placeholder, .textarea::placeholder { color: var(--faint); opacity: 1; }
+.input:focus, .textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: var(--accent); }
+.row { display: flex; align-items: center; gap: 8px; }
+.row > .input { flex: 1; min-width: 0; }
+.check { display: flex; align-items: center; gap: 8px; font: 400 14px/1.4 var(--font-ui); color: var(--text); }
+.check input { width: 16px; height: 16px; margin: 0; accent-color: var(--accent); }
+
+.seg { display: inline-flex; gap: 2px; padding: 2px; border: 1px solid var(--control); border-radius: var(--r-control); background: var(--surface); }
+.seg button { height: 30px; padding: 0 14px; border: 0; border-radius: 4px; background: transparent; color: var(--muted); font: 500 14px/1 var(--font-ui); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--active); color: var(--text); }
+
+/* Antwortvorgaben der Rueckfrage */
+.opts { display: grid; gap: 8px; }
+.opt { display: grid; gap: 2px; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r-panel); background: var(--surface); color: var(--text); text-align: left; cursor: pointer; }
+.opt:hover { border-color: var(--accent); }
+.opt[aria-pressed="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.opt b { font: 600 14px/1.4 var(--font-ui); }
+.opt span { font: 400 14px/1.4 var(--font-ui); color: var(--muted); }
+
+/* Statuszeilen: Erststart, Anfrage laeuft, Fehler */
+.note { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--r-control); background: var(--sunken); color: var(--text); font: 400 14px/1.45 var(--font-ui); }
+.note .ico { margin-top: 1px; }
+.note p { margin: 0; }
+.note-error { background: var(--err-bg); border-color: var(--err-line); color: var(--err-ink); }
+.note-busy { display: grid; gap: 8px; }
+.bar { position: relative; height: 3px; border-radius: 2px; background: var(--line); overflow: hidden; }
+.bar::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 35%; background: var(--accent); animation: bar-run 1.4s linear infinite; }
+@keyframes bar-run { from { transform: translateX(-100%); } to { transform: translateX(290%); } }
+@media (prefers-reduced-motion: reduce) { .bar::after { animation: none; width: 100%; } }
+
+/* Verlauf, Ergebnis */
+.turn { padding: 10px 12px; border-left: 3px solid var(--line); background: var(--surface); font: 400 14px/1.5 var(--font-ui); color: var(--text); }
+.turn-assistant { border-left-color: var(--accent); }
+.turn .tag { display: block; margin-bottom: 2px; }
+.result { margin: 0; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--r-panel); background: var(--sunken); color: var(--text); font: 400 13px/1.6 var(--font-mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+.raw { margin: 0; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--r-control); background: var(--surface); font: 400 13px/1.55 var(--font-mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+
+/* ---------- Mockup-Buehne (nicht Teil der App) ---------- */
+.mock { display: grid; gap: 40px; padding: 32px; justify-items: start; }
+.mock-head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; max-width: 1100px; }
+.mock-head .lead { flex-basis: 100%; max-width: 72ch; }
+.mock-cap { margin: 0 0 10px; font: 500 12px/1.4 var(--font-mono); color: var(--muted); }
+.mock-row { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
+figure { margin: 0; }
+
+/* Desktop-Fenster (pywebview, Fenster min. 800 x 600) */
+.win { display: flex; flex-direction: column; width: 1100px; height: 720px; border: 1px solid var(--line); border-radius: 8px; background: var(--ground); overflow: hidden; container: win / inline-size; }
+.win.s800 { width: 800px; height: 600px; }
+.win-bar { flex: none; display: flex; align-items: center; gap: 8px; height: 32px; padding-left: 12px; border-bottom: 1px solid var(--line); background: var(--sunken); color: var(--muted); font: 400 12px/1 var(--font-ui); }
+.win-ctl { display: flex; margin-left: auto; }
+.win-ctl span { display: grid; place-items: center; width: 46px; height: 32px; }
+.win-ctl .ico { width: 14px; height: 14px; stroke-width: 1.2; }
+
+/* Android-Telefon 360 x 800 dp */
+.phone { display: flex; flex-direction: column; width: 360px; height: 800px; border: 1px solid var(--line); border-radius: 28px; background: var(--ground); overflow: hidden; }
+.sysbar { flex: none; display: flex; align-items: center; justify-content: space-between; height: 28px; padding: 0 20px; color: var(--text); font: 500 12px/1 var(--font-ui); }
+.sysbar span { display: flex; gap: 4px; }
+.sysbar .ico { width: 16px; height: 16px; }
+.gesture { flex: none; display: grid; place-items: center; height: 24px; background: inherit; }
+.gesture::after { content: ""; width: 108px; height: 4px; border-radius: 2px; background: var(--muted); }
+
+/* Touch: Ziele mind. 48 px, Eingabe 16 px gegen Auto-Zoom */
+.touch .btn { height: 48px; font-size: 16px; padding: 0 20px; }
+.touch .input { height: 48px; font-size: 16px; }
+.touch .textarea { font-size: 16px; }
+.touch .input.mono, .touch .textarea.mono { font-size: 15px; }
+.touch .opt { min-height: 56px; padding: 12px 16px; }
+.touch .seg { display: flex; padding: 0; }
+.touch .seg button { flex: 1; height: 48px; padding: 0 12px; font-size: 16px; }
+.touch .result { font-size: 14px; }
+.touch .check { min-height: 48px; }
+.touch .check input { width: 20px; height: 20px; }

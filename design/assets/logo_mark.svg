@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img">
+<title>Eisberg Tech - Zeichen L6 Fusion</title>
+<desc>Kreisrunde Grundfläche in Tiefblau mit Stahlblau-Rand. Darin der facettierte Polygon-Eisberg aus L1, durch die Wasserlücke läuft eine waagerechte Wasserlinie.</desc>
+<circle cx="128" cy="128" r="121" fill="#0D3F5F" stroke="#2C7AA4" stroke-width="6"/>
+<g transform="translate(18.9 17.1) scale(0.88)">
+<polygon points="48,100 108,20 140,62 158,42 184,100" fill="#BCE0F1"/>
+<polygon points="108,20 48,100 120,100 140,62" fill="#F4FAFE"/>
+<polygon points="32,116 216,116 196,172 150,232 100,208 56,164" fill="#2C7AA4"/>
+<polygon points="32,116 120,116 100,208 56,164" fill="#4FA0C6"/>
+</g>
+<rect x="30" y="109.2" width="196" height="6" fill="#4FA0C6"/>
+</svg>

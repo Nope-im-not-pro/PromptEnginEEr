@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prompt EnginEEr</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-opt" viewBox="0 0 24 24"><path d="M4 20L14 10"/><path d="M12.5 8.5l2-2 3 3-2 2z"/><path d="M18 3v3M16.5 4.5h3M20 11v2M19 12h2M8 3v2M7 4h2"/></symbol>
+  <symbol id="i-hist" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></symbol>
+  <symbol id="i-set" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 5H6a1 1 0 0 0-1 1v10"/></symbol>
+  <symbol id="i-del" viewBox="0 0 24 24"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12"/></symbol>
+  <symbol id="i-new" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17h.01"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-load" viewBox="0 0 24 24"><path d="M19 12a7 7 0 1 1-2-4.9M19 4v4h-4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M14 5h5v5M19 5l-8 8M17 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h5"/></symbol>
+</svg>
+
+<div id="app">
+  <aside class="side">
+    <div class="top">
+      <div class="brand"><img class="mark" src="assets/logo_mark.svg" alt="Eisberg Tech" width="32" height="32"><span class="brand-name">Prompt EnginEEr</span></div>
+      <button type="button" id="btn-back" class="icon-btn back" aria-label="Zurück"><svg class="ico"><use href="#i-back"/></svg></button>
+      <h1 id="view-title" class="h1 view-title">Optimieren</h1>
+      <span id="view-tag" class="tag view-tag"></span>
+    </div>
+    <nav class="tabs" aria-label="Hauptnavigation">
+      <button type="button" class="tab" data-tab="optimize" title="Optimieren"><span class="pill"><svg class="ico"><use href="#i-opt"/></svg></span><span class="tab-label">Optimieren</span></button>
+      <button type="button" class="tab" data-tab="history" title="Historie"><span class="pill"><svg class="ico"><use href="#i-hist"/></svg></span><span class="tab-label">Historie</span></button>
+      <button type="button" class="tab" data-tab="settings" title="Einstellungen"><span class="pill"><svg class="ico"><use href="#i-set"/></svg></span><span class="tab-label">Einstellungen</span></button>
+    </nav>
+    <section class="recent" aria-label="Zuletzt optimiert">
+      <h3>Zuletzt</h3>
+      <div id="recent-list" class="recent-list"></div>
+      <p id="recent-empty" class="hint">Noch keine Einträge.</p>
+    </section>
+    <p id="conn" class="conn"></p>
+  </aside>
+
+  <main class="main">
+    <div class="notes">
+      <div id="first-run" class="note" hidden><svg class="ico"><use href="#i-info"/></svg><p>Willkommen. Bitte zuerst Anbieter, Basis-URL, API-Key und Modell eintragen und speichern.</p></div>
+      <div id="busy" class="note note-busy" role="status" hidden><p>Bitte warten, Anfrage läuft ...</p><div class="bar"></div><span id="busy-conn" class="tag"></span></div>
+      <div id="error" class="note note-error" role="alert" hidden><svg class="ico"><use href="#i-alert"/></svg><p id="error-text"></p></div>
+    </div>
+
+    <section id="tab-optimize" class="panel">
+      <header class="panel-head">
+        <h2 class="h1 panel-title">Optimieren</h2>
+        <ol class="steps" aria-label="Fortschritt">
+          <li id="step-label-input"><svg class="ico done-ico"><use href="#i-check"/></svg><span class="n">1</span><span class="t">Eingabe</span></li>
+          <li id="step-label-question"><svg class="ico done-ico"><use href="#i-check"/></svg><span class="n">2</span><span class="t">Rückfrage</span></li>
+          <li id="step-label-result"><svg class="ico done-ico"><use href="#i-check"/></svg><span class="n">3</span><span class="t">Ergebnis</span></li>
+        </ol>
+        <p class="step-caption"><span id="step-caption-name">Eingabe</span><span id="step-caption-n" class="tag">Schritt 1 von 3</span></p>
+      </header>
+
+      <div id="step-input" class="step">
+        <div class="pane pane-own">
+          <div class="pane-head"><label class="h3" for="raw-prompt">Prompt eingeben</label></div>
+          <p class="lead step-lead">Beschreibe frei, was die KI für dich tun soll. Unvollständige Sätze sind okay.</p>
+          <textarea id="raw-prompt" class="textarea" rows="8" placeholder="Beschreibe frei, was die KI für dich tun soll. Unvollständige Sätze sind okay."></textarea>
+          <div class="foot">
+            <button type="button" id="btn-optimize" class="btn btn-primary"><svg class="ico"><use href="#i-send"/></svg><span>Optimieren</span></button>
+            <span class="hint kbd-hint"><kbd>Strg</kbd> + <kbd>Enter</kbd> sendet</span>
+          </div>
+        </div>
+        <div class="pane pane-model pane-placeholder">
+          <p class="hint">Rückfrage oder Ergebnis erscheinen hier.</p>
+        </div>
+      </div>
+
+      <div id="step-question" class="step" hidden>
+        <div class="card mine q-mine"><div class="card-head"><span class="tag">Du</span></div><p id="q-mine-text"></p></div>
+        <div class="pane pane-model">
+          <div class="pane-head"><h3 class="h3">Rückfrage</h3><span id="q-model" class="tag"></span></div>
+          <p id="question" class="question h2"></p>
+          <div id="options" class="opts" role="group" aria-label="Antwortvorgaben"></div>
+        </div>
+        <div class="pane pane-own refine">
+          <div class="pane-head"><label class="h3" for="refine-prompt">Oder Prompt neu formulieren</label></div>
+          <textarea id="refine-prompt" class="textarea" rows="6" placeholder="Prompt präziser formulieren und erneut senden."></textarea>
+          <p class="hint refine-hint">Passt keine Antwort? Prompt hier präzisieren und erneut senden.</p>
+          <div class="foot">
+            <button type="button" id="btn-refine" class="btn"><svg class="ico"><use href="#i-send"/></svg><span>Neu formulieren senden</span></button>
+            <span class="hint kbd-hint"><kbd>Strg</kbd> + <kbd>Enter</kbd> sendet</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="step-result" class="step" hidden>
+        <div class="pane pane-own res-own">
+          <div class="pane-head"><h3 class="h3">Dein Prompt</h3></div>
+          <pre id="res-raw" class="raw"></pre>
+          <h3 class="h3 res-turns-head">Verlauf</h3>
+          <div id="res-turns" class="pane-scroll res-turns"></div>
+        </div>
+        <div class="pane pane-model">
+          <div class="pane-head"><h3 class="h3">Optimierter Prompt</h3><span id="res-model" class="tag"></span></div>
+          <textarea id="result" class="result" rows="12" readonly></textarea>
+          <div class="foot">
+            <button type="button" id="btn-copy" class="btn btn-primary"><svg class="ico"><use href="#i-copy"/></svg><span>Kopieren</span></button>
+            <button type="button" id="btn-new" class="btn"><svg class="ico"><use href="#i-new"/></svg><span>Neuer Prompt</span></button>
+            <span id="copy-status" class="hint status"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-history" class="panel" hidden>
+      <header class="panel-head">
+        <h2 class="h1 panel-title">Historie</h2>
+        <span id="history-count" class="tag"></span>
+      </header>
+      <div class="pane list-pane">
+        <p id="history-empty" class="hint" hidden>Noch keine Einträge.</p>
+        <ul id="history-list" class="history-list" aria-label="Einträge, neueste zuerst"></ul>
+      </div>
+      <div id="history-detail" class="pane detail" hidden>
+        <button type="button" class="grip" id="detail-grip" aria-label="Eintrag schließen"></button>
+        <div class="detail-body">
+          <div class="card-head detail-head"><h3 class="h2">Eintrag</h3><span id="detail-date" class="tag"></span></div>
+          <h3 class="h3">Roh-Prompt</h3>
+          <pre id="detail-raw" class="raw"></pre>
+          <h3 class="h3">Verlauf</h3>
+          <div id="detail-turns" class="turns"></div>
+          <h3 class="h3">Ergebnis</h3>
+          <textarea id="detail-result" class="result" rows="10" readonly></textarea>
+        </div>
+        <div class="foot">
+          <button type="button" id="btn-detail-copy" class="btn btn-primary"><svg class="ico"><use href="#i-copy"/></svg><span>Kopieren</span></button>
+          <button type="button" id="btn-detail-delete" class="btn btn-danger"><svg class="ico"><use href="#i-del"/></svg><span>Löschen</span></button>
+          <span id="detail-copy-status" class="hint status"></span>
+        </div>
+      </div>
+      <div class="pane detail-placeholder"><p class="hint">Eintrag in der Liste auswählen.</p></div>
+    </section>
+
+    <section id="tab-settings" class="panel" hidden>
+      <header class="panel-head"><h2 class="h1 panel-title">Einstellungen</h2></header>
+      <div class="set-grid">
+        <div class="pane set-conn">
+          <h3 class="h3 group-title">Verbindung</h3>
+          <div class="form">
+            <div class="field">
+              <span class="lbl" id="lbl-api-type">Anbieter-Typ</span>
+              <select id="api-type" class="seg-source" tabindex="-1" aria-hidden="true">
+                <option value="openai">OpenAI-kompatibel</option>
+                <option value="anthropic">Anthropic-kompatibel</option>
+              </select>
+              <div class="seg seg-wide" role="group" aria-labelledby="lbl-api-type" data-for="api-type"></div>
+            </div>
+            <div class="field">
+              <label for="base-url">Basis-URL</label>
+              <input id="base-url" class="input mono" type="text" autocomplete="off">
+            </div>
+            <div class="field">
+              <label for="api-key">API-Key</label>
+              <input id="api-key" class="input mono" type="password" autocomplete="off">
+              <label class="check"><input id="clear-key" type="checkbox"> Key entfernen</label>
+            </div>
+            <div class="field">
+              <label for="model">Modell</label>
+              <div class="row model-row">
+                <input id="model" class="input mono" type="text" list="model-list" autocomplete="off" placeholder="Modellname eingeben oder Liste laden">
+                <button type="button" id="btn-models" class="btn"><svg class="ico"><use href="#i-load"/></svg><span>Modelle laden</span></button>
+              </div>
+              <datalist id="model-list"></datalist>
+            </div>
+          </div>
+          <div class="foot">
+            <button type="button" id="btn-save" class="btn btn-primary"><span>Speichern</span></button>
+            <span id="save-status" class="hint status"></span>
+          </div>
+        </div>
+        <div class="set-side">
+          <div class="pane set-view">
+            <h3 class="h3 group-title">Darstellung</h3>
+            <div class="field">
+              <span class="lbl" id="lbl-theme">Modus</span>
+              <select id="theme" class="seg-source" tabindex="-1" aria-hidden="true">
+                <option value="system">System</option>
+                <option value="light">Hell</option>
+                <option value="dark">Dunkel</option>
+              </select>
+              <div class="seg" role="group" aria-labelledby="lbl-theme" data-for="theme"></div>
+            </div>
+            <div class="field">
+              <span class="lbl" id="lbl-layout">Layout</span>
+              <select id="layout" class="seg-source" tabindex="-1" aria-hidden="true">
+                <option value="werkbank">Werkbank</option>
+                <option value="fokus">Fokus</option>
+              </select>
+              <div class="seg" role="group" aria-labelledby="lbl-layout" data-for="layout"></div>
+            </div>
+            <span class="hint">Wirkt sofort.</span>
+          </div>
+          <div class="pane set-about">
+            <div class="pane-head"><h3 class="h3 group-title">Über</h3><span id="app-version" class="tag">Prompt EnginEEr 1.4.1</span></div>
+            <div class="lockup-box">
+              <img class="lockup on-light" src="assets/logo_hell.svg" alt="Eisberg Tech" width="144" height="67">
+              <img class="lockup on-dark" src="assets/logo_dunkel.svg" alt="Eisberg Tech" width="144" height="67">
+            </div>
+            <a id="repo-link" class="repo-link" href="https://github.com/Nope-im-not-pro/PromptEngineer"><svg class="ico"><use href="#i-link"/></svg><span>Quellcode auf GitHub</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
